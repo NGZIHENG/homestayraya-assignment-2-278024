@@ -203,7 +203,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       return 'Please enter password';
     } else {
       if (!regex.hasMatch(value)) {
-        return '1[A-Z], 1[a-z], 1[0-9] and more than 6 characters';
+        return '1[A-Z], 1[a-z], 1[0-9] and >10 characters';
       } else {
         return null;
       }
