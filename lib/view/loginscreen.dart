@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../model/config.dart';
 import '../model/user.dart';
 import 'mainscreen.dart';
 import 'registrationscreen.dart';
@@ -9,7 +10,6 @@ import 'package:http/http.dart' as http;
 
 
 class LoginScreen extends StatefulWidget {
-  
   const LoginScreen({super.key});
 
   @override
@@ -136,7 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     String _email = _emailEditingController.text;
     String _pass = _passEditingController.text;
-    http.post(Uri.parse("http://10.113.167.42/homestayraya/php/login_user.php"),
+    http.post(Uri.parse("${Config.server}/homestayraya/php/login_user.php"),
         body: {"email": _email, "password": _pass}).then((response) {
       print(response.body);
       var jsonResponse = json.decode(response.body);
@@ -145,7 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
         User user = User.fromJson(jsonResponse['data']);
         print(user.phone);
         Navigator.push(context,
-            MaterialPageRoute(builder: (content) => MainScreen(user: user)));
+            MaterialPageRoute(builder: (content) => MainScreen(user: user,)));
       } else {
         Fluttertoast.showToast(
             msg: "Login Failed",
